@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <style>
+    .outer {
+      width: 400px;
+      height: 40px;
+      border: 1px solid #000;
+      overflow: hidden;
+    }
+
+    .inner {
+      width: 0%;
+      height: 100%;
+      background-color: green;
+    }
+  </style>
+</head>
+
+<body>
+
+  <input type="file" id="img">
+  <div class="outer">
+    <div class="inner"></div>
+  </div>
+
+  <script>
+
+
+    var img = document.querySelector("input");
+    var inner = document.querySelector(".inner");
+    // var file = document.querySelector(".file")
+    img.onchange = function(){
+      //发送ajax
+      var xhr = new XMLHttpRequest();
+      xhr.open("post","04-file.php");
+      //收集表单数据
+      
+      var formData = new FormData();
+      formData.append("img",img.files[0]);
+      //提交请求的响应回调
+      xhr.upload.onprogress = function(e){
+        inner.style.width = e.loaded/e.total *100 + "%";
+      }
+
+    }
+
+  </script>
+</body>
+
+</html>
